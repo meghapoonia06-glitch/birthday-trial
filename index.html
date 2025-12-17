@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Preview ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #ffe3ed, #fff7fa);
+      color: #2f2f2f;
+      overflow-x: hidden;
+    }
+
+    /* Falling Hearts */
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: rgba(255, 120, 160, 0.9);
+      font-size: 18px;
+      animation: fall linear forwards;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .hero {
+      text-align: center;
+      padding: 70px 20px 40px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p { opacity: 0.85; }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .time-box {
+      background: white;
+      border-radius: 18px;
+      padding: 14px 16px;
+      min-width: 75px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .time-box h2 { font-size: 1.5rem; }
+    .time-box span { font-size: 0.7rem; opacity: 0.6; }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 24px;
+      display: none;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin: 40px 0;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 22px;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .message {
+      background: white;
+      border-radius: 26px;
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    .message h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 16px;
+    }
+
+    .music {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    audio {
+      width: 100%;
+      max-width: 320px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-bottom: 20px;
+    }
+
+    #lockMessage {
+      margin-top: 18px;
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <h1>Happy Birthday, My Love 🎂</h1>
+    <p>16 December — SAMPLE PREVIEW</p>
+
+    <div class="countdown">
+      <div class="time-box"><h2 id="days">00</h2><span>DAYS</span></div>
+      <div class="time-box"><h2 id="hours">00</h2><span>HOURS</span></div>
+      <div class="time-box"><h2 id="minutes">00</h2><span>MIN</span></div>
+      <div class="time-box"><h2 id="seconds">00</h2><span>SEC</span></div>
+    </div>
+
+    <div id="lockMessage">🤍 Sample unlocked for preview</div>
+  </section>
+
+  <div class="container">
+
+    <section class="gallery">
+      <img src="photo1.jpg" alt="Photo 1">
+      <img src="photo2.jpg" alt="Photo 2">
+    </section>
+
+    <section class="message">
+      <h2>For You 🤍</h2>
+      <p>
+        This is a preview version so I can see everything clearly. But every feeling here is real. You make my life warmer, calmer, and full of love. I’m grateful for you beyond words.
+        <br><br>
+        This space, these memories, and this love — all of it is for you.
+      </p>
+    </section>
+
+    <section class="music">
+      <p style="margin-bottom:10px; opacity:0.7">Tum Se Hi 🎶</p>
+      <audio controls autoplay loop>
+        <source src="tumsehi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </section>
+
+  </div>
+
+  <footer>
+    Made with love ❤️</footer>
+
+  <script>
+    // SAMPLE PREVIEW DATE: 16 DECEMBER
+    const targetDate = new Date("December 16, 2025 00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        document.querySelector('.container').style.display = 'block';
+        document.getElementById('lockMessage').style.display = 'none';
+      }
+
+      document.getElementById('days').innerText = Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24)));
+      document.getElementById('hours').innerText = Math.max(0, Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      document.getElementById('minutes').innerText = Math.max(0, Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+      document.getElementById('seconds').innerText = Math.max(0, Math.floor((distance % (1000 * 60)) / 1000));
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
